@@ -17,13 +17,13 @@ final class UserService {
             case .success(let data):
                 completion(self.handleWithData(data))
             case .failure(let error):
-                self.handleWithError(error)
+                completion(self.handleWithError(error))
             }
         })
     }
     
-    private func handleWithError(_ error: Error){
-        print(error.localizedDescription)
+    private func handleWithError(_ error: Error) -> User? {
+        return User(login: "", id: -1, avatarUrl: "", reposUrl: "", name: "", publicRepos: 0, followers: 0, following: 0)
     }
     
     private func handleWithData(_ data: Data) -> User? {
@@ -31,7 +31,6 @@ final class UserService {
             let user = try JSONDecoder().decode(User.self, from: data)
             return user
         } catch  {
-            print(error)
             return nil
         }
     }

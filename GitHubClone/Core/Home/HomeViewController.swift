@@ -2,6 +2,7 @@ import UIKit
 
 protocol IHomeViewController: AnyObject{
     func navigateToDetailScreen(user: User, repositories: [Repository])
+    func displayAlertError()
 }
 
 
@@ -81,6 +82,13 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: IHomeViewController{
+    func displayAlertError() {
+        let errorAlert = UIAlertController(title: "Error", message: "Couldn't find the user", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        errorAlert.addAction(okAction)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+    
     func navigateToDetailScreen(user: User, repositories: [Repository]) {
         DispatchQueue.main.async {
             let detailScreen = MemberDetailViewController(user: user, repositories: repositories)
@@ -280,6 +288,7 @@ extension HomeViewController {
                 self.present(errorAlert, animated: true, completion: nil)
                 return
             }
+            
             self.members.append(newMember)
             saveAllObjects(allObjects: members)
             self.tableView.reloadData()

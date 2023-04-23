@@ -17,7 +17,6 @@ class NetworkManager{
         
         let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                print(error.localizedDescription)
                 completion(.failure(error))
                 return
             }

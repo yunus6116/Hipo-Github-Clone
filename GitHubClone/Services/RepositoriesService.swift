@@ -23,7 +23,7 @@ final class RepositoriesService {
     }
     
     private func handleWithError(_ error: Error){
-        print(error.localizedDescription)
+        
     }
     
     private func handleWithData(_ data: Data) -> [Repository]? {

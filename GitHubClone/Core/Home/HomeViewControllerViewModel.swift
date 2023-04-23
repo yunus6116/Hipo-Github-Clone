@@ -20,11 +20,16 @@ final class HomeViewControllerViewModel {
 extension HomeViewControllerViewModel: IHomeViewControllerViewModel{
     func getMemberDetailAndNavigate(userName: String){
         service.getMemberDetail(userName: userName) { [weak self] user in
-            guard let self = self else {return}
+            guard let self = self else { return }
             guard let user = user else { return }
-            
+            if user.id == -1{
+                DispatchQueue.main.async {
+                    self.view?.displayAlertError()
+                }
+                return
+            }
             repositoriesService.getUserRepositories(userName: userName) { [weak self] repositories in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 guard let repositories = repositories else { return }
                 
                 self.view?.navigateToDetailScreen(user: user, repositories: repositories)
