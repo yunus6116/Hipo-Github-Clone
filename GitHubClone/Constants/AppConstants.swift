@@ -1,0 +1,61 @@
+//
+//  AppConstants.swift
+//  GitHubClone
+//
+//  Created by Yunus Kara on 22.04.2023.
+//
+
+import Foundation
+
+final class AppConstants {
+    static let jsonData = """
+    {
+      "company": "Hipo",
+      "team": "iOS",
+      "members": [
+        {
+          "name": "Salih Karasuluoğlu",
+          "github": "sakkaras",
+          "hipo": {
+            "position": "Team Lead",
+            "years_in_hipo": 7
+          }
+        },
+        {
+          "name": "Ömer Emre Aslan",
+          "github": "OEA",
+          "hipo": {
+            "position": "Senior iOS Developer",
+            "years_in_hipo": 6
+          }
+        },
+        {
+          "name": "Göktuğ Berk Ulu",
+          "github": "goktugberkulu",
+          "hipo": {
+            "position": "Senior iOS Developer",
+            "years_in_hipo": 6
+          }
+        },
+        {
+          "name": "Ahmet Cemal Şahin",
+          "github": "acsahin",
+          "hipo": {
+            "position": "Junior iOS Developer",
+            "years_in_hipo": 2
+          }
+        },
+        {
+          "name": "Ege Eke",
+          "github": "ekeege",
+          "hipo": {
+            "position": "iOS Developer",
+            "years_in_hipo": 2
+          }
+        }
+      ]
+    }
+    """.data(using: .utf8)!
+}
+
+
