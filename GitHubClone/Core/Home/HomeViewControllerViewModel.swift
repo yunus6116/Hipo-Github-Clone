@@ -18,7 +18,7 @@ final class HomeViewControllerViewModel {
 }
 
 extension HomeViewControllerViewModel: IHomeViewControllerViewModel{
-    func getMemberDetail(userName: String){
+    func getMemberDetailAndNavigate(userName: String){
         service.getMemberDetail(userName: userName) { [weak self] user in
             guard let self = self else {return}
             guard let user = user else { return }
