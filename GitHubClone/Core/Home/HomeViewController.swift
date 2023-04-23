@@ -25,30 +25,30 @@ class HomeViewController: UIViewController {
         return searchController.isActive && !isSearchBarEmpty
     }
     var getAllObjects: [Member] {
-          let defaultObject = Member(name: "", github: "", hipo: HipoModel(position: "", yearsInHipo: 0))
-          if let objects = UserDefaults.standard.value(forKey: "members") as? Data {
-             let decoder = JSONDecoder()
-             if let objectsDecoded = try? decoder.decode([Member].self, from: objects) as [Member] {
+        if let objects = UserDefaults.standard.value(forKey: "members") as? Data {
+            let decoder = JSONDecoder()
+            if let objectsDecoded = try? decoder.decode([Member].self, from: objects) as [Member] {
                 return objectsDecoded
-             } else {
-                return [defaultObject]
-             }
-          } else {
-              let response: GetAllMembersResponse = try! JSONDecoder().decode(GetAllMembersResponse.self, from:AppConstants.jsonData)
-              saveAllObjects(allObjects: response.members)
-              return response.members
-          }
-       }
-
+            } else {
+                let response: GetAllMembersResponse = try! JSONDecoder().decode(GetAllMembersResponse.self, from:AppConstants.jsonData)
+                saveAllObjects(allObjects: response.members)
+                return response.members
+            }
+        } else {
+            let response: GetAllMembersResponse = try! JSONDecoder().decode(GetAllMembersResponse.self, from:AppConstants.jsonData)
+            saveAllObjects(allObjects: response.members)
+            return response.members
+        }
+    }
+    
     func saveAllObjects(allObjects: [Member]) {
-          let encoder = JSONEncoder()
-          if let encoded = try? encoder.encode(allObjects){
-             UserDefaults.standard.set(encoded, forKey: "members")
-          }
-     }
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(allObjects){
+            UserDefaults.standard.set(encoded, forKey: "members")
+        }
+    }
     
     
-    // Üyeleri geri getirme fonksiyonu
     func loadMembers() {
         members = getAllObjects
     }
@@ -297,8 +297,8 @@ extension HomeViewController {
         let sortedMembers = members.sorted { (member1, member2) -> Bool in
             let lastName1 = member1.name.components(separatedBy: " ").last ?? ""
             let lastName2 = member2.name.components(separatedBy: " ").last ?? ""
-            let count1 = lastName1.countOccurrences(of: Character("a"))
-            let count2 = lastName2.countOccurrences(of: Character("a"))
+            let count1 = lastName1.lowercased().countOccurrences(of: Character("a"))
+            let count2 = lastName2.lowercased().countOccurrences(of: Character("a"))
             
             if count1 == count2 {
                 if lastName1.count == lastName2.count {
